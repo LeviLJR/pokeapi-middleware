@@ -5,6 +5,9 @@ const axios = require("axios");
 const app = express();
 const PORT = 3000;
 
+const cors = require("cors");
+app.use(cors());
+
 // Get a list of Pokémon's names
 app.get("/api/pokemons", async (req, res) => {
   try {
@@ -35,14 +38,15 @@ app.get("/api/pokemons/:poke_name", async (req, res) => {
     const abilitiesResponse = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${poke_name}`
     );
-
     // Extract and sort abilities
+
     const abilities = abilitiesResponse.data.abilities
       .map((ability) => ability.ability.name)
       .sort();
     res.json({
       name: poke_name,
       abilities: abilities,
+      base_experience: abilitiesResponse.data.base_experience,
     });
   } catch (error) {
     res.status(500).send("Pokemon ${poke_name} not found");

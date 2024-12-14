@@ -1,93 +1,191 @@
-# Middleware da PokeAPI
+# PokeAPI Middleware
 
-Este projeto é um middleware desenvolvido em Node.js que consome a PokeAPI para retornar informações sobre os Pokémon. O objetivo deste middleware é fornecer uma rota que, ao ser acessada, retorna as habilidades de um Pokémon, ordenadas por ordem alfabética.
+This project, **pokeapi-middleware**, was developed by **LeviLJR** and consists of a Node.js middleware that consumes the PokeAPI to return information about Pokémon, along with a frontend created with **React**, **Vite** e **Axios**.The goal is to provide a complete application that allows users to search for Pokémon abilities in a simple and interactive way.
 
-## Requisitos
+---
 
-Antes de rodar o projeto, você precisa ter o seguinte instalado:
+## Requirements
 
-- [Node.js](https://nodejs.org/) (v14 ou superior)
-- [NPM](https://www.npmjs.com/) (gerenciador de pacotes)
+Before running the project, you need to have the following installed:
 
-## Instalação
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) (package manager)
 
-1. Clone o repositório para o seu computador:
+---
+
+## Project Structure
+
+The project is divided into two main parts:
+
+1. **Backend**: A Node.js middleware that makes requests to the PokeAPI.
+2. **Frontend**: A React application with Vite that consumes the backend and displays the information interactively.
+
+---
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/LeviLJR/pokeapi-middleware.git
+```
+
+### 2. Navigate to the Project Directory
+
+```bash
+cd pokeapi-middleware
+```
+
+---
+
+### Backend Setup
+
+1. Access the backend directory:
 
    ```bash
-   git clone https://github.com/SEU_USUARIO/nome-do-repositorio.git
+   cd backend
    ```
 
-2. Navegue até o diretório do projeto:
+2. Install the dependencies:
 
-   ```bash
-   cd nome-do-repositorio
-
-   ```
-
-3. Instale as dependências:
    ```bash
    npm install
    ```
 
-## Uso
+Make sure the following dependencies are installed:
 
-1. Após instalar as dependências, inicie o servidor com o seguinte comando:
+- **express**: Framework for the server.
+- **axios**: Library for HTTP requests.
+- **cors**: Middleware to enable CORS.
+
+If they are not installed, you can install them manually with:
+
+```bash
+npm install express axios cors
+```
+
+3. Start the server:
 
    ```bash
    npm start
-
    ```
 
-O servidor estará rodando em http://localhost:3000. <br><br>
-Agora, você pode acessar a seguinte rota para buscar as habilidades de um Pokémon:
+The server will be running at `http://localhost:3000`.
 
-    GET http://localhost/api/pokemons/:poke_name
+---
 
-Substitua :poke_name pelo nome de qualquer Pokémon, por exemplo:
+### Frontend Setup
 
-    GET http://localhost/api/pokemons/pikachu
+1. Access the frontend directory:
 
-## Exemplo de resposta:
+   ```bash
+   cd ../frontend
+   ```
 
-    {
-      "name": "pikachu",
-      "abilities": [
-        "lightning-rod",
-        "static"
-      ]
-    }
+2. Install the dependencies:
 
-A resposta será as habilidades do Pokémon ordenadas em ordem alfabética.
+   ```bash
+   npm install
+   ```
 
-## Como funciona
+   Make sure the following dependencies are installed:
 
-Este middleware faz uma chamada à PokeAPI para obter as informações sobre o Pokémon fornecido na URL. Em seguida, ele extrai e ordena as habilidades do Pokémon em ordem alfabética, retornando essas informações como uma resposta JSON.
+   - **react**: Library for building user interfaces.
+   - **react-dom**:React rendering library.
+   - **vite**: Development tool.
+   - **axios**: Library for HTTP requests.
 
-#### Endpoints
+If they are not installed, you can install them manually with:
 
-    GET /api/pokemons/:poke_name:
+```bash
+npm install react react-dom vite axios
+```
 
-Retorna as habilidades de um Pokémon especificado na URL, ordenadas alfabeticamente.
-<br><br>
+3. Start the frontend server::
 
-## Exemplo de solicitação
+   ```bash
+   npm run dev
+   ```
 
-Rota:
+The frontend will be accessible at `http://localhost:5173`.
 
-    /api/pokemons/pikachu
+---
 
-Resposta:
+## Usage
 
-    {
-      "name": "pikachu",
-      "abilities": [
-        "lightning-rod",
-        "static"
-      ]
-    }
+After setting up and running both servers, you can access the application in your browser to search for Pokémon abilities. The frontend will consume the backend to display the data.
 
-## Dependências
+---
 
-_express_: Framework minimalista para criar o servidor.
-<br>
-_axios_: Biblioteca para fazer requisições HTTP para a PokeAPI.
+## Backend Routes
+
+### GET `/api/pokemons/:poke_name`
+
+This route returns the abilities of a Pokémon specified in the `:poke_name`parameter, ordered alphabetically.
+
+#### Example Usage
+
+**Request:**
+
+```http
+GET http://localhost:3000/api/pokemons/pikachu
+```
+
+**Resposta:**
+
+```json
+{
+  "name": "pikachu",
+  "abilities": ["lightning-rod", "static"],
+  "base_experience": 112
+}
+```
+
+---
+
+## Frontend Features
+
+The frontend has a modern and interactive interface that allows you to:
+
+- Enter a Pokémon's name.
+- Search for the Pokémon's abilities by clicking the "Search" button.
+- Display the abilities and `base_experience` in a clear and styled way.
+
+### Example Screen
+
+Here's a live demo of the application working
+<img src="https://imgur.com/zHMYZJb.gif"/>
+
+1. **Input** the Pokémon's name.
+2. Search **Button**.
+3. Display of **abilities** and **base_experience** on the screen.
+
+---
+
+## Technologies Used
+
+### Backend:
+
+- **Node.js**: JavaScript runtime environment.
+- **Express**: Framework for creating the server.
+- **Axios**: Library for making HTTP requests to the PokeAPI.
+- **CORS**: Middleware to enable CORS on the backend.
+
+### Frontend:
+
+- **React**: Library for building user interfaces.
+- **Vite**: Tool for fast frontend development.
+- **Axios**: Library for communicating with the backend.
+- **Tailwind CSS**: CSS framework for styling.
+
+---
+
+## Contribution
+
+Feel free to contribute improvements or report issues. Just create a pull request or open an issue in the`pokeapi-middleware`repository.
+
+---
+
+## Developed by
+
+- **LeviLJR**
