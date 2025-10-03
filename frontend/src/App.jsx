@@ -1,5 +1,5 @@
 // Import React and other dependencies
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -12,7 +12,7 @@ const App = () => {
   const [error, setError] = useState("");
 
   // Function to handle the search
-    const fetchPokemonData = async () => {
+  const fetchPokemonData = async () => {
     setError("");
     setAbilities([]);
 
@@ -24,14 +24,20 @@ const App = () => {
     const formattedPokeName = pokeName.trim().toLowerCase();
     try {
       const response = await axios.get(
-        `/api/server/pokemons/${formattedPokeName}` 
+        `https://pokeapi.co/api/v2/pokemon/${formattedPokeName}`
       );
-      const { abilities, base_experience } = response.data;
-      setAbilities(abilities);
-      setBaseExperience(base_experience);
-      setSearchedPokeName(pokeName);
+
+      console.log(response);
+
+      const abilitiesList = response.data.abilities.map(
+        (ability) => ability.ability.name
+      );
+      setAbilities(abilitiesList);
+      setBaseExperience(response.data.base_experience);
+      setSearchedPokeName(formattedPokeName);
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      setError("Pokémon not found or server error. Please try again.");
+      setError("Pokémon not found. Please try again.");
     }
   };
 
@@ -76,10 +82,9 @@ const App = () => {
           </button>
         </div>
 
-        {/* Mensagem de erro */}
+        {/* Error message */}
         {error && <p className="mt-6 text-red-400 text-center">{error}</p>}
 
-        {/* Resultados */}
         {abilities.length > 0 && (
           <div className="mt-6">
             <div className="my-8 border-t border-gray-500"></div>
