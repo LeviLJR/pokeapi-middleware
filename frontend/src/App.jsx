@@ -12,21 +12,19 @@ const App = () => {
   const [error, setError] = useState("");
 
   // Function to handle the search
-  const fetchPokemonData = async () => {
-    // Clear previous errors and results
+    const fetchPokemonData = async () => {
     setError("");
     setAbilities([]);
 
-    //Input is empty
     if (!pokeName.trim()) {
       setError("Please enter a Pokémon name.");
       return;
     }
-    //
+
     const formattedPokeName = pokeName.trim().toLowerCase();
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/pokemons/${formattedPokeName}`
+        `/api/server/pokemons/${formattedPokeName}` 
       );
       const { abilities, base_experience } = response.data;
       setAbilities(abilities);
@@ -36,6 +34,7 @@ const App = () => {
       setError("Pokémon not found or server error. Please try again.");
     }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center p-4 font-mono">
       {/* Main container */}
